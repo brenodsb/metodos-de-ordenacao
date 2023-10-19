@@ -1,42 +1,51 @@
-class Item {
-    int key;
-
-    public Item(int key) {
-        this.key = key;
-    }
-}
-
 public class atividade_1 {
+
     public static void main(String[] args) {
-        Item[] array = new Item[]{new Item(5), new Item(2), new Item(9), new Item(1), new Item(5)};
+        
+        int[] vetor = {4, 3, 1, 2, 5};
 
-        System.out.println("Array antes da ordenação:");
-        for (Item item : array) {
-            System.out.print(item.key + " ");
-        }
+        System.out.print("Vetor original: ");
+        imprimirVetor(vetor);
+        System.out.println("------------------------------");
 
-        bubbleSort(array, array.length);
+        bolha(vetor, vetor.length);
 
-        System.out.println("\nArray após a ordenação:");
-        for (Item item : array) {
-            System.out.print(item.key + " ");
-        }
     }
 
-    static void bubbleSort(Item[] E, int n) {
-        Item aux;
+    public static void bolha(int[] E, int n) {
+        int aux, comparacoes = 0, trocas = 0;
         boolean trocou = true;
+        int ultimaTrocaPosicao = n - 1; // ultima troca ocorre no final do vetor
 
-        for (int i = 0; i < n - 1 && trocou; i++) {
+        for (int i = 0; i < n - 1 && trocou == true; i++) {
             trocou = false;
-            for (int j = 0; j < n - i - 1; j++) {
-                if (E[j].key > E[j + 1].key) {
+            int novaUltimaTrocaPosicao = 0; // nova posição da última troca
+            for (int j = 0; j < ultimaTrocaPosicao; j++) {
+                comparacoes++;
+                if (E[j] > E[j + 1]) {
+                    trocas++;
                     trocou = true;
                     aux = E[j];
                     E[j] = E[j + 1];
                     E[j + 1] = aux;
+                    novaUltimaTrocaPosicao = j; // atualiza a posição da última troca
                 }
             }
+            ultimaTrocaPosicao = novaUltimaTrocaPosicao; // atualiza a posição da última troca
         }
+
+        System.out.println("BOLHA");
+        System.out.print("Vetor: ");
+        imprimirVetor(E);
+        System.out.println("Trocas: " + trocas);
+        System.out.println("Comparações: " + comparacoes);
+        System.out.println("------------------------------");
+    }
+
+    public static void imprimirVetor(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
     }
 }
